@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Zona cliente - Entradas</title>
+  <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<nav>
+  <div>
+    <a th:href="@{/}">Teatro</a>
+  </div>
+
+  <div>
+    <!-- Usuario autenticado -->
+    <span th:if="${usuarioAutenticado}">
+            <span th:text="${emailUsuario}">usuario@email.com</span>
+
+            <a th:href="@{/cliente}">Zona cliente</a>
+            <a th:href="@{/admin}">Zona admin</a>
+            <a th:href="@{/logout}">Cerrar sesión</a>
+        </span>
+
+    <!-- Usuario no autenticado -->
+    <span th:if="${!usuarioAutenticado}">
+            <a th:href="@{/login}">Iniciar sesión</a>
+        </span>
+  </div>
+</nav>
+
+<main>
+
+  <h1>Funciones disponibles</h1>
+
+  <section>
+    <ul>
+      <!-- Listado de funciones -->
+      <li th:each="funcion : ${listaFunciones}">
+        <strong th:text="${funcion.obra.titulo}">
+          Título de la obra
+        </strong><br>
+
+        Fecha:
+        <span th:text="${funcion.fecha}">fecha</span>
+        -
+        Hora:
+        <span th:text="${funcion.hora}">hora</span>
+        -
+        Precio:
+        <span th:text="${funcion.precio}">precio</span>
+        €
+
+        <br><br>
+
+        <a th:href="@{/comprar(idFuncion=${funcion.id})}">
+          Comprar entrada
+        </a>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <p>&copy; Teatro - Zona cliente</p>
+</footer>
+
+</body>
+</html>

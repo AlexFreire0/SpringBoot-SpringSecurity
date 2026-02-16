@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+
+<body>
+
+    <nav>
+        <div>
+            <a th:href="@{/}">Teatro</a>
+        </div>
+    </nav>
+
+    <main>
+
+        <h1>Registro de Usuario</h1>
+
+        <form th:action="@{/registro/guardar}" method="post">
+
+            <div>
+                <label for="nombre">Nombre completo</label><br>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+
+            <div>
+                <label for="email">Correo electrónico (Usuario)</label><br>
+                <input type="text" id="email" name="email" required>
+            </div>
+
+            <div>
+                <label for="pw">Contraseña</label><br>
+                <input type="password" id="pw" name="pw" required>
+            </div>
+
+            <br>
+
+            <button type="submit">Registrarse</button>
+            <a th:href="@{/login}" class="button-cancel">Cancelar</a>
+        </form>
+
+    </main>
+
+    <footer>
+        <p>&copy; Teatro - Registro</p>
+    </footer>
+
+</body>
+
+</html>

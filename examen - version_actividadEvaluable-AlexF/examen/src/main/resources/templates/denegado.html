@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceso denegado</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<nav>
+    <div>
+        <a th:href="@{/}">Teatro</a>
+    </div>
+</nav>
+
+<main>
+
+    <h1>Acceso restringido</h1>
+
+    <section>
+        <p>
+            No tienes permiso para acceder a esta sección de la aplicación.
+        </p>
+        <p>
+            Si crees que se trata de un error, contacta con el administrador.
+        </p>
+    </section>
+
+    <section>
+        <img src="/imagenes/denegado.png" alt="Acceso denegado" style="max-width: 300px;">
+    </section>
+
+    <section>
+        <a th:href="@{/}">Volver a la página principal</a>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; Teatro</p>
+</footer>
+
+</body>
+</html>

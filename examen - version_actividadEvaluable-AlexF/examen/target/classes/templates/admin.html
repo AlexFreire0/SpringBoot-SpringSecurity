@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Zona admin</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+
+<body>
+
+<nav>
+    <div>
+        <a th:href="@{/}">Teatro</a>
+    </div>
+
+    <div>
+            <span th:if="${usuarioAutenticado}">
+                <span th:text="${emailUsuario}">usuario@email.com</span>
+
+                <a th:href="@{/cliente}">Zona cliente</a>
+                <a th:href="@{/admin}">Zona admin</a>
+                <a th:href="@{/logout}">Cerrar sesión</a>
+            </span>
+    </div>
+</nav>
+
+<main>
+
+    <h1>Panel de administración</h1>
+
+    <!-- SECCIÓN: Gestión de obras -->
+    <h2>Gestión de obras</h2>
+
+    <div style="margin-bottom: 20px;">
+        <a th:href="@{/admin/obra/nueva}" class="button">Nueva Obra</a>
+    </div>
+
+    <!-- NUEVA SECCIÓN: Resumen por obra -->
+    <h3>Resumen por obra</h3>
+
+    <p>
+        Resumen de entradas vendidas y recaudación total por cada obra.
+    </p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Título de la obra</th>
+            <th>Entradas vendidas</th>
+            <th>Recaudación total (€)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="obra : ${resumenObras}">
+            <td th:text="${obra[0]}">Título</td>
+            <td style="color: darkred; font-weight: bold;">
+                <span th:text="${obra[1] != null ? obra[1] : 0}">0</span>
+            </td>
+            <td style="color: darkgreen; font-weight: bold;">
+                <span th:text="${obra[2] != null ? #numbers.formatDecimal(obra[2], 1, 2) + ' €' : '0,00 €'}">0,00 €</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- SECCIÓN: Gestión de funciones -->
+    <h2 style="margin-top: 40px;">Gestión de funciones</h2>
+
+    <p>
+        A continuación se muestra el listado de funciones junto con el
+        número total de entradas vendidas.
+    </p>
+
+    <div style="margin-bottom: 20px;">
+        <a th:href="@{/admin/funcion/nueva}" class="button">Nueva Función</a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Obra</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Precio (€)</th>
+            <th>Entradas vendidas</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="fila : ${datosFunciones}">
+            <td th:text="${fila[3]}">Título</td>
+            <td th:text="${fila[0]}">Fecha</td>
+            <td th:text="${fila[1]}">Hora</td>
+            <td th:text="${fila[2]}">Precio</td>
+            <td style="color: darkred; font-weight: bold;">
+                (<span th:text="${fila[4] != null ? fila[4] : 0}">0</span>)
+            </td>
+            <td>
+                <!-- fila[5] = id -->
+                <a th:href="@{/admin/funcion/verDetalles(id=${fila[5]})}">Ver Detalles</a>
+                <a th:href="@{/admin/funcion/editar(id=${fila[5]})}">Editar</a> |
+                <a th:href="@{/admin/funcion/eliminar(id=${fila[5]})} "
+                   onclick="return confirm('¿Estás seguro de que quieres eliminar esta función?');">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</main>
+
+<footer>
+    <p>&copy; Teatro - Zona administración</p>
+</footer>
+
+</body>
+
+</html>

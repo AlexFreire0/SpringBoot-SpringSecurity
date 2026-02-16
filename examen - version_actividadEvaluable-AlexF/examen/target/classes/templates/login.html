@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+
+<body>
+
+    <nav>
+        <div>
+            <a th:href="@{/}">Teatro</a>
+        </div>
+    </nav>
+
+    <main>
+
+        <h1>Iniciar sesión</h1>
+
+        <!--
+        Spring Security redirige a /login?error cuando falla la autenticación.
+        Thymeleaf expone los parámetros de la URL en 'param', por lo que
+        'param.error' existe y permite mostrar este mensaje.
+    -->
+        <div th:if="${param.error}">
+            <p style="color: red;">
+                Usuario o contraseña incorrectos
+            </p>
+        </div>
+
+        <div th:if="${param.registrado}">
+            <p style="color: green;">
+                Registro exitoso, por favor inicie sesión
+            </p>
+        </div>
+
+        <form th:action="@{/login}" method="post">
+
+            <div>
+                <label for="username">Correo electrónico</label><br>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <br>
+
+            <div>
+                <label for="password">Contraseña</label><br>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <br>
+
+            <button type="submit">Entrar</button>
+        </form>
+
+    </main>
+
+    <footer>
+        <p>&copy; Teatro</p>
+    </footer>
+
+</body>
+
+</html>

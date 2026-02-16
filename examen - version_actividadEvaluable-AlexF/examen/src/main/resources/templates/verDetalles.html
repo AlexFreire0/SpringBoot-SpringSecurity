@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Comprar entrada</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<nav>
+    <div>
+        <a th:href="@{/}">Teatro</a>
+    </div>
+
+    <div>
+        <span th:if="${usuarioAutenticado}">
+            <span th:text="${emailUsuario}">usuario@email.com</span>
+
+            <a th:href="@{/cliente}">Zona cliente</a>
+            <a th:href="@{/admin}">Zona admin</a>
+            <a th:href="@{/logout}">Cerrar sesión</a>
+        </span>
+    </div>
+</nav>
+
+<main>
+
+    <h1>Informacion de la Funcion</h1>
+
+    <!-- Resumen de la función -->
+    <section>
+        <h2 th:text="${TituloObra}">Nombre de la obra</h2>
+
+        <p>
+            <strong>Numero de entradas:</strong>
+            <span th:text="${Cantidad}">Cantidad entradas</span>
+        </p>
+
+        <p>
+            <strong>Nombre Cliente:</strong>
+            <span th:text="${NombreCliente}">Nombre del cliente</span>
+        </p>
+
+        <p>
+            <strong>Correo Cliente:</strong>
+            <span th:text="${CorreoC}">Correo del cliente</span>
+        </p>
+
+
+    </section>
+    <!--
+    <section>
+        <hr>
+        <ul>
+        -->
+            <!-- Listado de funciones
+            <li th:each="entrada : ${entradas}">
+                <strong th:text="${entrada.funcion.obra.titulo}">
+                    Título de la obra
+                </strong><br>
+                <br>
+                Fecha:
+                <span th:text="${entrada.funcion.fecha}">fecha</span>
+                <br>
+                Duracion:
+                <span th:text="${entrada.funcion.obra.duracion}">hora</span>
+                <br>
+                Cantidad:
+                <span th:text="${entrada.cantidad}">precio</span>
+                <br>
+                <br>
+            </li>
+        </ul>
+
+    </section>
+-->
+</main>
+
+<footer>
+    <p>&copy; Teatro - Compra de entradas</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Teatro</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<nav>
+    <div>
+        <a th:href="@{/}">Teatro</a>
+    </div>
+
+    <div>
+        <!-- Usuario autenticado -->
+        <span th:if="${usuarioAutenticado}">
+            <span th:text="${emailUsuario}">usuario@email.com</span>
+
+            <a th:href="@{/cliente}">Zona cliente</a>
+            <a th:href="@{/perfil}">VerPerfil</a>
+            <a th:href="@{/admin}">Zona admin</a>
+            <a th:href="@{/logout}">Cerrar sesión</a>
+        </span>
+
+        <!-- Usuario no autenticado -->
+        <span th:if="${!usuarioAutenticado}">
+            <a th:href="@{/login}">Iniciar sesión</a>
+            <a th:href="@{/registro}">Registrarse</a>
+        </span>
+    </div>
+</nav>
+
+<main>
+
+    <section>
+        <img src="/imagenes/teatro.jpg" alt="Teatro" style="max-width: 100%;">
+    </section>
+
+    <section>
+        <h1>Obras en cartelera</h1>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Título</th>
+                <th>Género</th>
+                <th>Duración (min)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="obra : ${listaObras}">
+                <td th:text="${obra.titulo}">Título</td>
+                <td th:text="${obra.genero}">Género</td>
+                <td th:text="${obra.duracion}">Duración</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p style="margin-top: 15px;">
+            Consulta las funciones disponibles accediendo a la <strong>zona cliente</strong>.
+        </p>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; Teatro - Aplicación de ejemplo</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Comprar entrada</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<nav>
+    <div>
+        <a th:href="@{/}">Teatro</a>
+    </div>
+
+    <div>
+        <span th:if="${usuarioAutenticado}">
+            <span th:text="${emailUsuario}">usuario@email.com</span>
+
+            <a th:href="@{/cliente}">Zona cliente</a>
+            <a th:href="@{/admin}">Zona admin</a>
+            <a th:href="@{/logout}">Cerrar sesión</a>
+        </span>
+    </div>
+</nav>
+
+<main>
+
+    <h1>Informacion del perfil</h1>
+
+    <!-- Resumen de la función -->
+    <section>
+        <h2 th:text="${nombreU}">Nombre de usuario</h2>
+
+        <p>
+            <strong>Correo:</strong>
+            <span th:text="${emailUsuario}">usuario@email.com</span>
+        </p>
+
+        <p>
+            <strong>Rol del usuario:</strong>
+            <span th:text="${perfilU}">Rol</span>
+        </p>
+
+        <p>
+            <strong>Estado:</strong>
+            <span th:text="${activoU}">Estado del usuario</span>
+        </p>
+    </section>
+    <section>
+        <hr>
+        <ul>
+            <!-- Listado de funciones -->
+            <li th:each="entrada : ${entradas}">
+                <strong th:text="${entrada.funcion.obra.titulo}">
+                    Título de la obra
+                </strong><br>
+                <br>
+                Fecha:
+                <span th:text="${entrada.funcion.fecha}">fecha</span>
+                <br>
+                Duracion:
+                <span th:text="${entrada.funcion.obra.duracion}">hora</span>
+                <br>
+                Cantidad:
+                <span th:text="${entrada.cantidad}">precio</span>
+                <br>
+                <br>
+                <a th:href="@{/perfil/eliminar(id=${entrada.getId()})} "
+                   onclick="return confirm('¿Estás seguro de que quieres eliminar esta función?');">Eliminar</a>
+            </li>
+        </ul>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; Teatro - Compra de entradas</p>
+</footer>
+
+</body>
+</html>

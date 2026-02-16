@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Obra</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<nav>
+    <div>
+        <a th:href="@{/}">Teatro</a>
+    </div>
+
+    <div>
+        <span th:if="${usuarioAutenticado}">
+            <span th:text="${emailUsuario}">usuario@email.com</span>
+            <a th:href="@{/cliente}">Zona cliente</a>
+            <a th:href="@{/admin}">Zona admin</a>
+            <a th:href="@{/logout}">Cerrar sesión</a>
+        </span>
+    </div>
+</nav>
+
+<main>
+
+    <h1 th:text="${obra.id == 0 ? 'Nueva Obra' : 'Editar Obra'}">Gestión de Obra</h1>
+
+    <form th:action="@{/admin/obra/guardar}" th:object="${obra}" method="post">
+
+        <!-- ID (Oculto o Readonly) -->
+        <div>
+            <label for="id">ID:</label>
+            <input type="number" id="id" th:field="*{id}" readonly>
+        </div>
+
+        <!-- Título -->
+        <div>
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" th:field="*{titulo}" required maxlength="100">
+        </div>
+
+        <!-- Duración -->
+        <div>
+            <label for="duracion">Duración (minutos):</label>
+            <input type="number" id="duracion" th:field="*{duracion}" required min="1">
+        </div>
+
+        <!-- Género -->
+        <div>
+            <label for="genero">Género:</label>
+            <input type="text" id="genero" th:field="*{genero}" required maxlength="50">
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button type="submit">Guardar</button>
+            <a th:href="@{/admin}" class="button-cancel">Cancelar</a>
+        </div>
+    </form>
+
+</main>
+
+<footer>
+    <p>&copy; Teatro - Zona administración</p>
+</footer>
+
+</body>
+</html>

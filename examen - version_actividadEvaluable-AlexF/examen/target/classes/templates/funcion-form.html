@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Función</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+
+<nav>
+    <div>
+        <a th:href="@{/}">Teatro</a>
+    </div>
+
+    <div>
+        <span th:if="${usuarioAutenticado}">
+            <span th:text="${emailUsuario}">usuario@email.com</span>
+            <a th:href="@{/cliente}">Zona cliente</a>
+            <a th:href="@{/admin}">Zona admin</a>
+            <a th:href="@{/logout}">Cerrar sesión</a>
+        </span>
+    </div>
+</nav>
+
+<main>
+
+    <h1 th:text="${funcion.id == 0 ? 'Nueva Función' : 'Editar Función'}">Gestión de Función</h1>
+
+    <form th:action="@{/admin/funcion/guardar}" th:object="${funcion}" method="post">
+        
+        <!-- ID (Oculto o Readonly) -->
+        <div>
+            <label for="id">ID:</label>
+            <input type="number" id="id" th:field="*{id}" readonly>
+        </div>
+
+        <!-- Obra (Select) -->
+        <div>
+            <label for="obra">Obra:</label>
+            <select id="obra" th:field="*{obra}">
+                <option th:each="o : ${listaObras}" 
+                        th:value="${o.id}" 
+                        th:text="${o.titulo}">Título de la obra</option>
+            </select>
+        </div>
+
+        <!-- Fecha -->
+        <div>
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" th:field="*{fecha}" required>
+        </div>
+
+        <!-- Hora -->
+        <div>
+            <label for="hora">Hora:</label>
+            <input type="time" id="hora" th:field="*{hora}" required>
+        </div>
+
+        <!-- Precio -->
+        <div>
+            <label for="precio">Precio (€):</label>
+            <input type="number" step="0.01" id="precio" th:field="*{precio}" required>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button type="submit">Guardar</button>
+            <a th:href="@{/admin}" class="button-cancel">Cancelar</a>
+        </div>
+    </form>
+
+</main>
+
+<footer>
+    <p>&copy; Teatro - Zona administración</p>
+</footer>
+
+</body>
+</html>
